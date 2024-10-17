@@ -5,7 +5,7 @@ namespace ContactManagerT1.Models
     public class Contact
     {
         // Primary Key for the Contact table in the database
-        public int Id { get; set; }
+        public int ContactId { get; set; }
 
         // First name of the contact, marked as required (cannot be empty)
         [Required]  // Ensures this field must have a value when creating or editing a contact
@@ -29,5 +29,8 @@ namespace ContactManagerT1.Models
 
         // Organization field is optional, and will store the organization the contact works for
         public string Organization { get; set; }
+
+        public string Slug =>
+        FirstName?.Replace(' ', '-').ToLower() + '-' + LastName?.Replace(' ', '-').ToLower();
     }
 }
