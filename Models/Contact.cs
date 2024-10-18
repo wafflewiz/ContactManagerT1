@@ -5,7 +5,7 @@ namespace ContactManagerT1.Models
     public class Contact
     {
         // Primary Key for the Contact table in the database
-        public int ContactId { get; set; }
+        public int Id { get; set; }
 
         // First name of the contact, marked as required (cannot be empty)
         [Required]  // Ensures this field must have a value when creating or editing a contact

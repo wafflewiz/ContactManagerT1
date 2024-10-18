@@ -1,23 +1,20 @@
-using ContactManagerT1.Models;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
+using Microsoft.EntityFrameworkCore;
+using ContactManagerT1.Models;
 namespace ContactManagerT1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private ContactContext context { get; set; }
+        public HomeController(ContactContext ctx)
         {
-            _logger = logger;
+            context = ctx;
         }
-
         public IActionResult Index()
         {
-            return View();
+            var contacts = context.Contacts.OrderBy(c => c.LastName).ToList();
+            return View(contacts);
         }
-
-       
     }
 }
