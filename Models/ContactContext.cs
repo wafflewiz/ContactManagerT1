@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace ContactManagerT1.Models
 {
@@ -21,7 +19,7 @@ namespace ContactManagerT1.Models
             modelBuilder.Entity<Contact>().HasData(
                 new Contact
                 {
-                    ContactId = 1,
+                    Id = 1,
                     FirstName = "John",
                     LastName = "Doe",
                     Phone = "555-1234",
@@ -30,7 +28,7 @@ namespace ContactManagerT1.Models
                 },
                 new Contact
                 {
-                    ContactId = 2,
+                    Id = 2,
                     FirstName = "Jane",
                     LastName = "Smith",
                     Phone = "555-5678",
@@ -39,7 +37,7 @@ namespace ContactManagerT1.Models
                 },
                 new Contact
                 {
-                    ContactId = 3,
+                    Id = 3,
                     FirstName = "Michael",
                     LastName = "Johnson",
                     Phone = "555-8765",

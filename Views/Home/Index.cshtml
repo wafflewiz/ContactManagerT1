@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Contact>
+@{
     ViewData["Title"] = "Contact Manager";
 }
 
@@ -17,18 +18,22 @@
             <th>Last Name</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Category</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var contact in Model)
         {
             <tr>
-                <td><a asp-action="Details" asp-route-id="@contact.Id">@contact.FirstName</a></td>
+                <td>@contact.FirstName</td>
                 <td>@contact.LastName</td>
                 <td>@contact.Phone</td>
                 <td>@contact.Email</td>
-                <td>@contact.Category</td>
+                <td>
+                <a asp-controller="Contact" asp-action="Edit"
+                   asp-route-id="@contact.Id">Edit</a>
+                <a asp-controller="Contact" asp-action="Delete"
+                   asp-route-id="@contact.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
