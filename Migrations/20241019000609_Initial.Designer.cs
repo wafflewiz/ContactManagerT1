@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactManagerT1.Migrations
 {
     [DbContext(typeof(ContactContext))]
-    [Migration("20241018221408_SeedContacts")]
-    partial class SeedContacts
+    [Migration("20241019000609_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,50 @@ namespace ContactManagerT1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ContactManagerT1.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Name = "Friends"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Name = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Name = "Work"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Name = "Acquaintances"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            Name = "Clients"
+                        });
+                });
+
             modelBuilder.Entity("ContactManagerT1.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
@@ -31,6 +75,9 @@ namespace ContactManagerT1.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -54,12 +101,15 @@ namespace ContactManagerT1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Contacts");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Email = "johndoe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
@@ -69,6 +119,7 @@ namespace ContactManagerT1.Migrations
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             Email = "janesmith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
@@ -78,12 +129,24 @@ namespace ContactManagerT1.Migrations
                         new
                         {
                             Id = 3,
+                            CategoryId = 3,
                             Email = "mjohnson@example.com",
                             FirstName = "Michael",
                             LastName = "Johnson",
                             Organization = "Innovate Inc",
                             Phone = "555-8765"
                         });
+                });
+
+            modelBuilder.Entity("ContactManagerT1.Models.Contact", b =>
+                {
+                    b.HasOne("ContactManagerT1.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

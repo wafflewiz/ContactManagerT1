@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContactManagerT1.Models
 {
@@ -26,6 +28,11 @@ namespace ContactManagerT1.Models
         [Required]  // Ensures this field must have a value
         [EmailAddress]  // Ensures the value must be a valid email address format
         public string Email { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid category.")]
+        public int? CategoryId { get; set; }
+
+        public Category? Category { get; set; }
 
         // Organization field is optional, and will store the organization the contact works for
         public string Organization { get; set; }
