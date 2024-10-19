@@ -7,9 +7,8 @@
     <h2>@ViewData["Title"]</h2>
 </div>
 
-<p>
-    <a asp-action="Create" class="btn btn-link">Add Contact</a>
-</p>
+<a asp-controller="Contact" asp-action="Add">Add New Contact</a>
+
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -18,6 +17,7 @@
             <th>Last Name</th>
             <th>Phone</th>
             <th>Email</th>
+            <th>Category</th>
         </tr>
     </thead>
     <tbody>
@@ -28,11 +28,14 @@
                 <td>@contact.LastName</td>
                 <td>@contact.Phone</td>
                 <td>@contact.Email</td>
+                <td>@contact.Category.Name</td>
                 <td>
                 <a asp-controller="Contact" asp-action="Edit"
-                   asp-route-id="@contact.Id">Edit</a>
+                   asp-route-id="@contact.Id"
+                   asp-route-slug="@contact.Slug">Edit</a>
                 <a asp-controller="Contact" asp-action="Delete"
-                   asp-route-id="@contact.Id">Delete</a>
+                   asp-route-id="@contact.Id"
+                   asp-route-slug="@contact.Slug">Delete</a>
                 </td>
             </tr>
         }

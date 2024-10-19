@@ -13,7 +13,7 @@ namespace ContactManagerT1.Controllers
         }
         public IActionResult Index()
         {
-            var contacts = context.Contacts.OrderBy(c => c.LastName).ToList();
+            var contacts = context.Contacts.Include(m => m.Category).OrderBy(m => m.LastName).ToList();
             return View(contacts);
         }
     }

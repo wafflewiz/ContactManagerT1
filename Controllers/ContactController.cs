@@ -14,12 +14,14 @@ namespace ContactManagerT1.Controllers
     public IActionResult Add()
     {
         ViewBag.Action = "Add";
+        ViewBag.Categories = context.Category.OrderBy(g => g.Name).ToList();
         return View("Edit", new Contact());
     }
     [HttpGet]
     public IActionResult Edit(int id)
     {
         ViewBag.Action = "Edit";
+            ViewBag.Categories = context.Category.OrderBy(g => g.Name).ToList();
         var contact = context.Contacts.Find(id);
         return View(contact);
     }
@@ -38,6 +40,7 @@ namespace ContactManagerT1.Controllers
         else
         {
             ViewBag.Action = (contact.Id == 0) ? "Add" : "Edit";
+            ViewBag.Categories = context.Category.OrderBy(g => g.CategoryId).ToList();
             return View(contact);
         }
     }
