@@ -31,7 +31,6 @@ namespace ContactManagerT1.Models
 
         [Range(1, int.MaxValue, ErrorMessage = "Please select a valid category.")]
         public int? CategoryId { get; set; }
-
         public Category? Category { get; set; }
 
         // Organization field is optional, and will store the organization the contact works for

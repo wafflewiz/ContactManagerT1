@@ -1,5 +1,6 @@
 ﻿using ContactManagerT1.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactManagerT1.Controllers
 {
@@ -10,7 +11,23 @@ namespace ContactManagerT1.Controllers
     {
         context = ctx;
     }
+        
     [HttpGet]
+        public IActionResult Details(int id)
+        {
+            // Retrieve the contact by the id from the database or service, including the Category
+            var contact = context.Contacts
+                .Include(c => c.Category) // Ensure you include the Category data
+                .FirstOrDefault(c => c.Id == id);
+
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            return View(contact); // Pass the contact data to the view
+        }
+        [HttpGet]
     public IActionResult Add()
     {
         ViewBag.Action = "Add";
